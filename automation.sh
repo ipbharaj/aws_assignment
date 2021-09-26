@@ -47,3 +47,17 @@ echo "-----Copy log tar to s3-----"
 aws s3 \
 cp /tmp/${filename}.tar \
 s3://${s3bucketname}/logfiles/${filename}.tar
+
+
+if [ -e /var/www/html/inventory.html ]
+then
+	echo "Inventory html file exists"
+else
+	echo "file doesnot exist adding inventory.html"
+	sudo touch /var/www/html/inventory.html
+	sudo echo "LogType    DateCreated    Type    Size" >> /var/www/html/inventory.html
+fi
+
+echo "add entry in inventory"
+size=$(stat -c '%s' /tmp/${filename}.tar)
+echo "https-logs    ${timestamp}    tar    ${size}" >> /var/www/html/inventory.html
