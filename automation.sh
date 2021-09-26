@@ -46,4 +46,4 @@ echo "-----Copy log tar to s3-----"
 
 aws s3 \
 cp /tmp/${filename}.tar \
-s3://upgrad-inderpreet/logfiles/${filename}.tar
+s3://${s3bucketname}/logfiles/${filename}.tar
